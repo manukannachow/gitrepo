@@ -2,36 +2,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name : mydeployment
-labels:
-app : myserver
+  name : mydeployment
+  labels:
+    app : myserver
 spec:
-replicas: 5
-selector:
-matchLabels:
-app: myserver
-template:
-metadata:
-labels:
-app: myserver
-spec:
-containers:
-- name: myserver
-image: gcr.io/empyrean-box-349804/nginx:v1
-ports:
-- containerPort: 80
+  replicas: 5
+  selector:
+    matchLabels:
+     app: myserver
+  template:
+    metadata:
+     labels:
+      app: myserver
+    spec:
+      containers:
+      - name: myserver
+        image: gcr.io/empyrean-box-349804/nginx:v1
+        ports:
+        - containerPort: 80
 ---
 apiVersion : v1
 kind: Service
 metadata:
-name: my-service
-labels:
-app: myserver
+ name: my-service
+ labels:
+  app: myserver
 spec:
-ports:
-- port: 80
-targetPort: 80
-selector:
-app: myserver
-type: LoadBalancer
-
+ ports:
+  - port: 80
+    targetPort: 80
+ selector:
+  app: myserver
+ type: LoadBalancer
